@@ -2,7 +2,10 @@ package bg.dimov.mobilelele.models.entity;
 
 import bg.dimov.mobilelele.models.entity.enums.Role;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 import java.time.Instant;
 import java.util.Set;
 
@@ -18,7 +21,7 @@ public class User extends BaseEntity{
 
     private Boolean isActive;
 
-    private UserRole role;
+    private Set<UserRole> role;
 
     private String imageUrl;
 
@@ -26,7 +29,7 @@ public class User extends BaseEntity{
 
     private Instant modified;
 
-    private Set<Offer> offers;
+    private String password;
 
     @Column(name = "username", nullable = false)
     public String getUsername() {
@@ -52,7 +55,7 @@ public class User extends BaseEntity{
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-    @Column(name = "is_active", nullable = false)
+
     public Boolean getActive() {
         return isActive;
     }
@@ -60,15 +63,15 @@ public class User extends BaseEntity{
     public void setActive(Boolean active) {
         isActive = active;
     }
-    @ManyToOne
-    public UserRole getRole() {
+    @ManyToMany
+    public Set<UserRole> getRole() {
         return role;
     }
 
-    public void setRole(UserRole role) {
+    public void setRole(Set<UserRole> role) {
         this.role = role;
     }
-    @Column(name = "image_url", nullable = false)
+
     public String getImageUrl() {
         return imageUrl;
     }
@@ -76,7 +79,7 @@ public class User extends BaseEntity{
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
-    @Column(name = "created", nullable = false)
+
     public Instant getCreated() {
         return created;
     }
@@ -84,7 +87,7 @@ public class User extends BaseEntity{
     public void setCreated(Instant created) {
         this.created = created;
     }
-    @Column(name = "modified")
+
     public Instant getModified() {
         return modified;
     }
@@ -92,12 +95,12 @@ public class User extends BaseEntity{
     public void setModified(Instant modified) {
         this.modified = modified;
     }
-    @OneToMany(mappedBy = "seller", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    public Set<Offer> getOffers() {
-        return offers;
+
+    public String getPassword() {
+        return password;
     }
 
-    public void setOffers(Set<Offer> offers) {
-        this.offers = offers;
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
